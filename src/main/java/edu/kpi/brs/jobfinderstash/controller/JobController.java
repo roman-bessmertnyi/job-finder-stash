@@ -1,11 +1,11 @@
 package edu.kpi.brs.jobfinderstash.controller;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,5 +32,10 @@ public class JobController {
     @GetMapping("logs/{seconds}")
     public List<JobPostChangelog> getLastLogs(@PathVariable final int seconds) {
         return loggerService.getLastLogs(seconds);
+    }
+
+    @PostMapping("logs/{seconds}")
+    public List<Object> pushChangedJobPosts(@PathVariable final int seconds) {
+        return loggerService.pushChangedJobPosts(seconds);
     }
 }

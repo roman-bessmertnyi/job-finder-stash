@@ -12,11 +12,11 @@ import edu.kpi.brs.jobfinderstash.model.JobPostChangelog;
 
 @Repository
 public interface JobPostChangelogDao extends JpaRepository<JobPostChangelog, Integer> {
-    @Query(value = "SELECT * FROM job_post_changelog "
+    @Query(value = "SELECT c FROM JobPostChangelog c " +
+            "JOIN FETCH c.jobPost "
             + "WHERE "
-            + "(job_post_changelog.modification_time > :sql_last_value "
-            + "AND job_post_changelog.modification_time < NOW()) "
-            + "ORDER BY job_post_changelog.modification_time ASC",
-    nativeQuery = true)
+            + "(c.modificationTime > :sql_last_value "
+            + "AND c.modificationTime < NOW()) "
+            + "ORDER BY c.modificationTime ASC")
     List<JobPostChangelog> getLastLogs(@Param("sql_last_value") Date lastValue);
 }
